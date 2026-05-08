@@ -1,0 +1,80 @@
+/* Estilização Customizada - Simulador Agrinho 2026 */
+
+:root {
+    --solo-pobre: #d2b48c; /* Cor de terra seca */
+    --solo-ideal: #5d4037; /* Cor de terra fértil/úmida */
+    --plantacao-viva: #2e7d32;
+    --plantacao-morta: #fbc02d;
+}
+
+/* Animação suave para o surgimento do site */
+body {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo dos Talhões (Quadrados da Fazenda) */
+.plot {
+    border: 2px solid rgba(0,0,0,0.05);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--solo-pobre);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+}
+
+/* Efeito de "Scanner" quando o modo Precisão está ativo */
+.modo-precisao-ativo .plot:hover {
+    outline: 3px solid #4ade80;
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+    z-index: 10;
+}
+
+/* Feedback visual de aplicação de insumo */
+.plot.aplicado {
+    animation: pulseGreen 0.5s ease-out;
+}
+
+@keyframes pulseGreen {
+    0% { box-shadow: inset 0 0 0 0 rgba(74, 222, 128, 0.8); }
+    100% { box-shadow: inset 0 0 0 50px rgba(74, 222, 128, 0); }
+}
+
+/* Estilização das barras de progresso/indicadores */
+#val-sustentavel, #val-producao, #val-insumos {
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Responsividade extra para o Grid */
+@media (max-width: 640px) {
+    .farm-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Tooltip simples para mostrar dados do solo ao passar o mouse */
+.plot::after {
+    content: attr(data-info);
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    font-size: 10px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.plot:hover::after {
+    opacity: 1;
+}
